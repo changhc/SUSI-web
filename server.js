@@ -11,7 +11,11 @@ server.listen(process.env.PORT || process.env.port || 3000, function()
 
 server.get('/', restify.serveStatic({
 	directory: __dirname,
-	default: './index.html'
+	default: './public/index.html'
+}));
+
+server.get(/\/?.*/, restify.serveStatic({
+	directory: './public'
 }));
 
 server.get('/list.json', restify.serveStatic({
