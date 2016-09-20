@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.2/css/bootstrap-select.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.2/js/bootstrap-select.min.js"></script>
+
+
+<link rel="stylesheet" type="text/css" href="main.css">
+<head>
+	<title>Select sensors</title>
+</head>
+<body onload="getAgentId()">
+	<div id="main" style="margin: 20px">
+		<h2>Select sensors to be monitored.</h2>
+		<button type="button" class="btn btn-default" onclick="addAgentBlock()">Add agent</button>
+		<div id="blocklist">
+			<div class="block" id="block1">
+				<h4>set 1</h4>
+				<div class="block-select">
+					<label>Agent</label>
+					<select class="form-control select-agentid" name="agentId" onchange="agentSelected(this)">
+						<option>--</option>
+							
+					</select>	
+				</div>
+				<div class="block-select">
+					<label>Handler</label>
+					<select class="form-control select-handler" name="handler" onchange="handlerSelected(this)">
+						<option>--</option>
+					</select>	
+				</div>
+				<div class="block-select">
+					<label>Sensor</label>
+					<select class="form-control select-sensorid" name="sensorId" multiple data-selected-text-format="count">
+					</select>	
+				</div>
+				<div class="block-select">
+					<br>
+					<button type="button" class="btn btn-danger" onclick="removeBlock(this)">Remove</button>
+				</div>
+			</div>
+		</div>
+		<button type="button" class="btn btn-primary" onclick="submit()">Submit</button>
+	</div>
+	<script src="main.js"></script>
+</body>
+</html>

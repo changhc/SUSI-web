@@ -1,0 +1,31 @@
+
+.btn {
+	height: 3em;
+}
+
+.block-select{
+
+	margin-left: 1em;
+	margin-right: 1em;
+	margin-top: 2em;
+	margin-bottom: 2em;
+	display: block;
+}
+
+
+.block{
+	margin: 2em;
+	display: flex;
+	flex-direction: row;
+}
+
+
+.form-control{
+	width: 20em; 
+}
+
+#blocklist .block .block-select .select-sensorid{
+	height: 10em;
+	width: auto;
+}
+
