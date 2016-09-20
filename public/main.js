@@ -116,7 +116,8 @@ function submit(){
 		var list = block.getElementsByTagName("select");
 		var item = {};
 		for(j = 0; j < list.length; ++j){
-			if(list[j].selectedIndex < 1) {
+			console.log(list[j].selectedIndex);
+			if(list[j].selectedIndex < 1 && list[j].name != "sensorId") {
 				alert('Blanks not allowed!');
 				return;
 			}
