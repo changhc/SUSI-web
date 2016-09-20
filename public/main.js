@@ -65,8 +65,8 @@ function handlerSelected(option){
 	};
 
 	var url = "http://susi-test.eastasia.cloudapp.azure.com/webresources/DeviceCtl/getSensorID";
-	var user = process.env.USER;
-	var pass = process.env.PASS;
+	var user = "admin";
+	var pass = "admin";
 	var request = new XMLHttpRequest();
 	request.open("POST", url, true);
 	request.setRequestHeader("Authorization", "Basic " + window.btoa(user + ":" + pass));
@@ -160,8 +160,8 @@ function submit(){
 
 function getAgentId(){
 	var url = "http://susi-test.eastasia.cloudapp.azure.com/webresources/DeviceMgmt";
-	var user = process.env.USER;
-	var pass = process.env.PASS;
+	var user = "admin";
+	var pass = "admin";
 	var request = new XMLHttpRequest();
 	request.open("GET", url, true);
 	request.setRequestHeader("Authorization", "Basic " + window.btoa(user + ":" + pass));
