@@ -14,14 +14,15 @@ server.get('/', restify.serveStatic({
 	default: './public/index.html'
 }));
 
-server.get(/\/?.*/, restify.serveStatic({
-	directory: './public'
-}));
-
 server.get('/list.json', restify.serveStatic({
 	directory: __dirname,
 	default: './list.json'
 }));
+
+server.get(/\/?.*/, restify.serveStatic({
+	directory: './public'
+}));
+
 
 server.post('/list', function(req, res, next){
 	res.send(200);
