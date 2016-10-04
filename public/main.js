@@ -82,13 +82,13 @@ function handlerSelected(option){
 		if (state == this.DONE && responseCode == 200) {
 			//console.log(this.response);
 			var list = JSON.parse(this.response).result.itemList.item;
-
 			select = op.parentNode.nextElementSibling.lastElementChild;
 			//console.log(list);
 			while (select.options.length > 0) {                
 				select.remove(0);
 			} 
 			for(i = 0; i < list.length; ++i){
+				if(list[i].type != "v") continue;
 				var option = document.createElement("option");
 				option.value = list[i].sensorID;
 				option.text = list[i].sensorID;
