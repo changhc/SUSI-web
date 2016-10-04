@@ -159,7 +159,7 @@ function submit(){
 }	
 
 function getAgentId(){
-	var url = "http://susi-test.eastasia.cloudapp.azure.com/webresources/DeviceMgmt";
+	var url = "http://susi.eastasia.cloudapp.azure.com/webresources/DeviceMgmt";
 	var user = "admin";
 	var pass = "admin";
 	var request = new XMLHttpRequest();
