@@ -64,7 +64,7 @@ function handlerSelected(option){
 		}
 	};
 
-	var url = "http://susi-test.eastasia.cloudapp.azure.com/webresources/DeviceCtl/getSensorID";
+	var url = "http://susi.eastasia.cloudapp.azure.com/webresources/DeviceCtl/getSensorID";
 	var user = "admin";
 	var pass = "admin";
 	var request = new XMLHttpRequest();
