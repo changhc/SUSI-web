@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "request": "^2.75.0",
     "restify": "^4.1.1"
   }
 }
