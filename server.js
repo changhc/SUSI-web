@@ -29,7 +29,7 @@ server.post('/list', function(req, res, next){
 	var data = JSON.stringify(req.params, null, 4);
     request({
         method: 'POST',
-        uri: 'https://func-test.azurewebsites.net/api/HttpTriggerNodeJS1?code=8fnhrx93ubc7oyf419eieifkddt07dzb7dwr',
+        uri: process.env.list_url,
         headers: {
             'Content-Type': 'application/json; charset=utf-8',
             'accept': 'application/json',

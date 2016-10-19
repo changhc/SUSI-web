@@ -22,6 +22,10 @@
 		<button type="button" class="btn btn-default" onclick="addAgentBlock()">Add agent</button>
 		<div id="blocklist">
 			<div class="block" id="block1">
+				<div class="block-select">
+					<br>
+					<button type="button" class="btn btn-danger" onclick="removeBlock(this)">Remove</button>
+				</div>
 				<h4>set 1</h4>
 				<div class="block-select">
 					<label>Agent</label>
@@ -41,10 +45,7 @@
 					<select class="form-control select-sensorid" name="sensorId" multiple data-selected-text-format="count">
 					</select>	
 				</div>
-				<div class="block-select">
-					<br>
-					<button type="button" class="btn btn-danger" onclick="removeBlock(this)">Remove</button>
-				</div>
+				
 			</div>
 		</div>
 		<button type="button" class="btn btn-primary" onclick="submit()">Submit</button>

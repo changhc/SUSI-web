@@ -25,7 +25,8 @@
 }
 
 #blocklist .block .block-select .select-sensorid{
-	height: 10em;
+	height: auto;
 	width: auto;
+	min-width: 20em;
 }
 

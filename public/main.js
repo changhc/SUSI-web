@@ -7,7 +7,7 @@ function addAgentBlock () {
 	//console.log(block);
 	var copy = block.cloneNode(true);
 	var count = document.getElementById("blocklist").childElementCount + 1;
-	copy.firstElementChild.textContent = "set " + count.toString();
+	copy.firstElementChild.nextElementSibling.textContent = "set " + count.toString();
 	copy.setAttribute("id", "block" + count.toString());
 	// add the newly created element and its content into the DOM 
 	document.getElementById("blocklist").appendChild(copy); 
@@ -25,28 +25,35 @@ function removeBlock(element){
 }
 
 function agentSelected(option){
-	console.log(option.selectedIndex);
-	var handlerList = agentList[option.selectedIndex - 1].handlerList.handler;
-	var select = option.parentNode.nextElementSibling.lastElementChild;
-	console.log(select.options);
-	while (select.options.length > 1) {                
-        select.remove(1);
-    } 
-	
-	if(handlerList.length === undefined){
-		var option = document.createElement("option");
-		option.value = handlerList.handlerName;
-		option.text = handlerList.handlerName;
-		select.add(option);
+
+	if(option.selectedIndex != 0){
+		var handlerList = agentList[option.selectedIndex - 1].handlerList.handler;
+		var select = option.parentNode.nextElementSibling.lastElementChild;
+		while (select.options.length > 1) {                
+			select.remove(1);
+		} 
+		
+		if(handlerList.length === undefined){
+			var option = document.createElement("option");
+			option.value = handlerList.handlerName;
+			option.text = handlerList.handlerName;
+			select.add(option);
+		}
+		else{
+
+			for(i = 0; i < handlerList.length; ++i){
+				var option = document.createElement("option");
+				option.value = handlerList[i].handlerName;
+				option.text = handlerList[i].handlerName;
+				select.add(option);
+
+			}
+		}
 	}
 	else{
-
-		for(i = 0; i < handlerList.length; ++i){
-			var option = document.createElement("option");
-			option.value = handlerList[i].handlerName;
-			option.text = handlerList[i].handlerName;
-			select.add(option);
-
+		var select = option.parentNode.nextElementSibling.lastElementChild;
+		while (select.options.length > 1) {                
+			select.remove(1);
 		}
 	}
 	
@@ -54,58 +61,64 @@ function agentSelected(option){
 
 function handlerSelected(option){
 	var op = option;
-	console.log(option.value);
 	var select = option.parentNode.previousElementSibling.lastElementChild;
-	console.log(select.options[select.selectedIndex].value);
-	var req_body = {
-		"request": {
-			"agentId": select.options[select.selectedIndex].value,
-			"handler": option.value
-		}
-	};
-
-	var url = "http://susi.eastasia.cloudapp.azure.com/webresources/DeviceCtl/getSensorID";
-	var user = "admin";
-	var pass = "admin";
-	var request = new XMLHttpRequest();
-	request.open("POST", url, true);
-	request.setRequestHeader("Authorization", "Basic " + window.btoa(user + ":" + pass));
-	request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-	request.setRequestHeader("Accept", "application/json");
-	console.log(JSON.stringify(req_body));
-	request.send(JSON.stringify(req_body));
-	request.onload = function() {
-		var state = this.readyState;
-		var responseCode = request.status;
-		console.log("request.onload called. readyState: " + state + "; status: " + responseCode);
-
-		if (state == this.DONE && responseCode == 200) {
-			//console.log(this.response);
-			var list = JSON.parse(this.response).result.itemList.item;
-			select = op.parentNode.nextElementSibling.lastElementChild;
-			//console.log(list);
-			while (select.options.length > 0) {                
-				select.remove(0);
-			} 
-			for(i = 0; i < list.length; ++i){
-				if(list[i].type != "v") continue;
-				var option = document.createElement("option");
-				option.value = list[i].sensorID;
-				option.text = list[i].sensorID;
-				select.add(option);
+	if(select.selectedIndex != 0 && op.selectedIndex != 0){
+		var req_body = {
+			"request": {
+				"agentId": select.options[select.selectedIndex].value,
+				"handler": option.value
 			}
-			
-		}
-	};
+		};
 
-	request.error = function(e) {
-		console.log("request.error called. Error: " + e);
-	};
+		var url = "http://susi.eastasia.cloudapp.azure.com/webresources/DeviceCtl/getSensorID";
+		var user = "admin";
+		var pass = "admin";
+		var request = new XMLHttpRequest();
+		request.open("POST", url, true);
+		request.setRequestHeader("Authorization", "Basic " + window.btoa(user + ":" + pass));
+		request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+		request.setRequestHeader("Accept", "application/json");
+		console.log(JSON.stringify(req_body));
+		request.send(JSON.stringify(req_body));
+		request.onload = function() {
+			var state = this.readyState;
+			var responseCode = request.status;
+			console.log("request.onload called. readyState: " + state + "; status: " + responseCode);
 
-	request.onreadystatechange = function(){
-		console.log("request.onreadystatechange called. readyState: " + this.readyState);
-	};
+			if (state == this.DONE && responseCode == 200) {
+				//console.log(this.response);
+				var list = JSON.parse(this.response).result.itemList.item;
+				select = op.parentNode.nextElementSibling.lastElementChild;
+				//console.log(list);
+				while (select.options.length > 0) {                
+					select.remove(0);
+				} 
+				for(i = 0; i < list.length; ++i){
+					if(list[i].type != "v") continue;
+					var option = document.createElement("option");
+					option.value = list[i].sensorID;
+					option.text = list[i].sensorID;
+					select.add(option);
+				}
+				
+			}
+		};
 
+		request.error = function(e) {
+			console.log("request.error called. Error: " + e);
+		};
+
+		request.onreadystatechange = function(){
+			console.log("request.onreadystatechange called. readyState: " + this.readyState);
+		};
+	}
+	else{
+		select = op.parentNode.nextElementSibling.lastElementChild;
+		//console.log(list);
+		while (select.options.length > 0) {                
+			select.remove(0);
+		} 
+	}
 }
 
 function submit(){
@@ -130,12 +143,21 @@ function submit(){
 			else item[list[j].name] = options[0].value;
 			
 		}
-		req.push(item);
+		if(Object.keys(item).length != 0){
+			for(j = 0; j < req.length; ++j){
+				if(item[list[0].name] == req[j][list[0].name] && item[list[1].name] == req[j][list[1].name]){
+					alert('Please do not select identical agentId and handlerId pairs!');
+					return;
+				}
+			}
+			req.push(item);
+		}
+			
 		block = block.nextElementSibling;
 	}
 	
 	var request = new XMLHttpRequest();
-	request.open("POST", "http://susi-web.azurewebsites.net/list", true);
+	request.open("POST", "http://localhost:3000/list", true);
 	request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 	request.send(JSON.stringify(req));
 	request.onload = function() {
