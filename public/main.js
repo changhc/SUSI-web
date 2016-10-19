@@ -157,7 +157,7 @@ function submit(){
 	}
 	
 	var request = new XMLHttpRequest();
-	request.open("POST", "http://localhost:3000/list", true);
+	request.open("POST", "http://susi-web.azurewebsites.net/list", true);
 	request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 	request.send(JSON.stringify(req));
 	request.onload = function() {
