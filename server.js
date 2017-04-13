@@ -1,5 +1,6 @@
 var restify = require('restify');
 var request = require('request');
+var azure = require('azure-storage');
 
 var server = restify.createServer();
 server.use(restify.bodyParser());
@@ -25,24 +26,22 @@ server.get(/\/?.*/, restify.serveStatic({
 
 
 server.post('/list', function(req, res, next){
-	res.send(200);
-	var data = JSON.stringify(req.params, null, 4);
-    request({
-        method: 'POST',
-        uri: process.env.list_url,
-        headers: {
-            'Content-Type': 'application/json; charset=utf-8',
-            'accept': 'application/json',
-            'dataType': 'text'
-        },
-            
-        body:  data
-        },
-        function (error, response, body) {
-            if (error) {
-                return console.error('upload failed:', error);
-            }
-            console.log(response.statusCode);
-        });
-
+    if (req.params.pass !== process.env.PASSCODE) {
+        res.send(401);
+        return;
+    }
+    var data = JSON.stringify(req.params.msg, null, 4);
+    console.log(data)
+    
+    var blobSvc = azure.createBlobService(process.env.STORAGE_ACCOUNT, process.env.STORAGE_ACCESS_KEY, process.env.HOST);
+        
+    blobSvc.createBlockBlobFromText(process.env.CONTAINER_NAME, 'list', data, {"contentType": "application/json"}, (error, blockBlob) => {
+        if (error) {
+            console.error(error);
+            res.send(500);
+        }
+        console.log(blockBlob);
+        res.send(200);
+    });
+    
 });

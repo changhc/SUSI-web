@@ -70,7 +70,7 @@ function handlerSelected(option){
 			}
 		};
 
-		var url = "http://susi.eastasia.cloudapp.azure.com/webresources/DeviceCtl/getSensorID";
+		var url = "http://wise-paas-server.eastasia.cloudapp.azure.com/webresources/DeviceCtl/getSensorID";
 		var user = "admin";
 		var pass = "admin";
 		var request = new XMLHttpRequest();
@@ -155,11 +155,11 @@ function submit(){
 			
 		block = block.nextElementSibling;
 	}
-	
+	var data = { pass: 'This is for WISE-PaaS only.', msg: req };
 	var request = new XMLHttpRequest();
-	request.open("POST", "http://susi-web.azurewebsites.net/list", true);
+	request.open("POST", "http://wise-webapp.azurewebsites.net/list", true);
 	request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-	request.send(JSON.stringify(req));
+	request.send(JSON.stringify(data));
 	request.onload = function() {
 		var state = this.readyState;
 		var responseCode = request.status;
@@ -181,7 +181,7 @@ function submit(){
 }	
 
 function getAgentId(){
-	var url = "http://susi.eastasia.cloudapp.azure.com/webresources/DeviceMgmt";
+	var url = "http://wise-paas-server.eastasia.cloudapp.azure.com/webresources/DeviceMgmt";
 	var user = "admin";
 	var pass = "admin";
 	var request = new XMLHttpRequest();

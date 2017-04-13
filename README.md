@@ -1,1 +1,1 @@
-# SUSI-web
+# WISE-webApp
