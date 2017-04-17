@@ -196,18 +196,32 @@ function getAgentId(){
 
 		if (state == this.DONE && responseCode == 200) {
 			var list = JSON.parse(this.response).result.item;
-			for(i = 0; i < list.length; ++i){
-				if(list[i].status != "Connected") continue;
-				agentList.push(list[i]);
+			if (typeof(list) === 'object') {
+				if(list.status !== "Connected") return;
+				agentList.push(list);
 				var select = document.getElementsByClassName("select-agentid");
+				console.log(select)
 				var option = document.createElement("option");
-				option.value = list[i].agentId;
-				option.text = list[i].name + " (" + list[i].agentId + ')';
+				option.value = list.agentId;
+				option.text = list.name + " (" + list.agentId + ')';
 				for(j = 0; j < select.length; ++j){
 					select[j].add(option);
 				}
+			} else {
+				for(i = 0; i < list.length; ++i){
+					if(list[i].status !== "Connected") continue;
+					agentList.push(list[i]);
+					var select = document.getElementsByClassName("select-agentid");
+					console.log(select)
+					var option = document.createElement("option");
+					option.value = list[i].agentId;
+					option.text = list[i].name + " (" + list[i].agentId + ')';
+					for(j = 0; j < select.length; ++j){
+						select[j].add(option);
+					}
+					
+				}
 			}
-			
 		}
 	};
 
