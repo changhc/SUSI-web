@@ -196,7 +196,7 @@ function getAgentId(){
 
 		if (state == this.DONE && responseCode == 200) {
 			var list = JSON.parse(this.response).result.item;
-			if (typeof(list) === 'object') {
+			if (!Array.isArray(list)) {
 				if(list.status !== "Connected") return;
 				agentList.push(list);
 				var select = document.getElementsByClassName("select-agentid");
